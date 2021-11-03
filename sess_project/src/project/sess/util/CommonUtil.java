@@ -99,4 +99,89 @@ public class CommonUtil {
 		
 		return isPacketError;
 	}
+	
+	/**
+	 * 입력전압 구하기
+	 * @param buffer 패킷 데이터(16진수)
+	 * @return
+	 */
+	public static String makeInfoInputVolt(String[] buffer) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.setLength(0);
+		for(int i = 5; i<=8; i++) {
+			int decimal = Integer.parseInt(buffer[i], 16);
+			sb.append((char) decimal);
+		}
+		
+		return sb.toString();
+	}
+	
+	/**
+	 * 전류 구하기
+	 * @param buffer 패킷 데이터(16진수)
+	 * @return
+	 */
+	public static String makeInfoElectricCurrent(String[] buffer) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.setLength(0);
+		for(int i = 9; i<=12; i++) {
+			int decimal = Integer.parseInt(buffer[i], 16);
+			sb.append((char) decimal);
+		}
+		
+		return sb.toString();
+	}
+	
+	/**
+	 * 출력전압 구하기
+	 * @param buffer 패킷 데이터(16진수)
+	 * @return
+	 */
+	public static String makeInfoOutputVolt(String[] buffer) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.setLength(0);
+		for(int i = 13; i<=16; i++) {
+			int decimal = Integer.parseInt(buffer[i], 16);
+			sb.append((char) decimal);
+		}
+		
+		return sb.toString();
+	}
+	
+	/**
+	 * 온도(방열판) 구하기
+	 * @param buffer 패킷 데이터(16진수)
+	 * @return
+	 */
+	public static String makeInfoFirstTemperature(String[] buffer) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.setLength(0);
+		for(int i = 17; i<=20; i++) {
+			int decimal = Integer.parseInt(buffer[i], 16);
+			sb.append((char) decimal);
+		}
+		
+		return sb.toString();
+	}
+	
+	/**
+	 * 온도(CAP) 구하기
+	 * @param buffer 패킷 데이터(16진수)
+	 * @return
+	 */
+	public static String makeInfoSecondTemperature(String[] buffer) {
+		StringBuilder sb = new StringBuilder();
+		
+		sb.setLength(0);
+		for(int i = 21; i<=24; i++) {
+			int decimal = Integer.parseInt(buffer[i], 16);
+			sb.append((char) decimal);
+		}
+		
+		return sb.toString();
+	}
 }
