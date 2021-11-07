@@ -15,7 +15,7 @@ import javax.swing.JFrame;
 import gnu.io.CommPort;
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
-import project.sess.util.CommonUtil;
+import project.sess.util.RingBuffer;
 import project.sess.vo.ImageVO;
 import project.sess.vo.OutputDataVO;
 import project.sess.vo.SelectedSettingVO;
@@ -45,7 +45,6 @@ public class MainFrame extends JFrame {
 	
 	private Runnable runnable;
 	private Thread thread;
-	private boolean threadKill = false;
 
 	private SelectedSettingVO selectedSetting = new SelectedSettingVO();
 	private OutputDataVO outputData = new OutputDataVO();
@@ -132,8 +131,6 @@ public class MainFrame extends JFrame {
 					selectedSetting.setParity(settingPanel.parity.getSelectedItem().toString());
 
 					System.out.println(selectedSetting.getDevice());
-
-					threadKill = false;
 					
 					if( !thread.isAlive() ) {
 						thread.setName("SerialPort");
@@ -146,8 +143,7 @@ public class MainFrame extends JFrame {
 		// settingPanel > serialPortClose Click
 		settingPanel.serialPortClose.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {
-				threadKill = true;
+			public void actionPerformed(ActionEvent e) {			
 				// serialPort.close();
 				// thread.interrupt();
 			}
@@ -310,6 +306,16 @@ public class MainFrame extends JFrame {
 		private int[] bufferToInt = new int[35];
 		private String[] bufferToString = new String[35];
 		
+		private String[] testPacket = {
+			"30", "30", "30", "30", "30"
+			,"30", "30", "34", "30" ,"30"
+			,"30", "30", "30", "30", "30"
+			,"30", "30", "0", "0", "0"
+			,"0", "70", "0", "0", "0"
+			,"b2", "3", "2", "35", "31"
+			,"18", "0", "30", "30", "30"
+		};
+		
 		@Override
 		public void run() {
 			String threadName = Thread.currentThread().getName();
@@ -317,7 +323,7 @@ public class MainFrame extends JFrame {
 
 			/* SerialPort Open */
 			try {
-				System.out.println("getDevice : " + selectedSetting.getDevice().toString());
+				/*System.out.println("getDevice : " + selectedSetting.getDevice().toString());
 				portIdentifier = CommPortIdentifier.getPortIdentifier(selectedSetting.getDevice().toString());
 
 				if (portIdentifier.isCurrentlyOwned()) {
@@ -346,16 +352,35 @@ public class MainFrame extends JFrame {
 					} else {
 
 					}
-				}
+				}*/
 
-				while (!threadKill) {
+				RingBuffer ringBuffer = new RingBuffer(70);
+				while (true) {
 
 					int delay = 1000 + random.nextInt(4000);
 
 					try {
 						Thread.sleep(1000);
-  
-						in = serialPort.getInputStream();
+						
+						while( ringBuffer.size()!=ringBuffer.capacity() ) {
+							for(int i = 0; i < testPacket.length; i++) {
+								ringBuffer.enque(testPacket[i]);	
+							}
+						}
+						
+						// 임시 데이터 출력
+						ringBuffer.dump();
+
+						String[] data = ringBuffer.getQue();
+						System.out.print("[Align Packet Log] : ");
+						for(int i = ringBuffer.indexOf("2"); i <= ringBuffer.indexOf("2")+34; i++) {
+							System.out.print(data[i] + " ");
+						}
+						System.out.println();
+
+						ringBuffer.clear();
+						
+						/*in = serialPort.getInputStream();
 						in.read(buffer, 0, buffer.length);
 
 						for (int i = 0; i < buffer.length; i++) {
@@ -398,12 +423,12 @@ public class MainFrame extends JFrame {
 						} else 
 						{
 
-						}
+						}*/
 					} catch (Exception e) 
 					{
-						System.out.println("Error ComPort Close");
+						/*System.out.println("Error ComPort Close");
 						serialPort.close();
-						e.printStackTrace();
+						e.printStackTrace();*/
 					}
 				}
 			} catch (Exception e) 
