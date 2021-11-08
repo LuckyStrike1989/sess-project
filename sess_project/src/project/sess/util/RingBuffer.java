@@ -6,7 +6,7 @@ public class RingBuffer {
     private int rear;    // 마지막 요소 커서
     private int num;        // 현재 데이터 수
     private String[] que;    // 큐 본체
-
+    
 	// 실행 시 예외 : 큐이 비어있음
     public class EmptyIntQueueException extends RuntimeException{
         public EmptyIntQueueException(){
@@ -70,7 +70,7 @@ public class RingBuffer {
     public int indexOf(String x){
         for(int i=0; i<num; i++){
             int idx = (i+front) % max;
-            if(que[idx] == x){    // 검색 성공
+            if(x.equals(que[idx])){    // 검색 성공
                 return idx;
             }
         }

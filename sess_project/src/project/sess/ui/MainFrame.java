@@ -15,6 +15,7 @@ import javax.swing.JFrame;
 import gnu.io.CommPort;
 import gnu.io.CommPortIdentifier;
 import gnu.io.SerialPort;
+import project.sess.util.CommonUtil;
 import project.sess.util.RingBuffer;
 import project.sess.vo.ImageVO;
 import project.sess.vo.OutputDataVO;
@@ -143,7 +144,7 @@ public class MainFrame extends JFrame {
 		// settingPanel > serialPortClose Click
 		settingPanel.serialPortClose.addActionListener(new ActionListener() {
 			@Override
-			public void actionPerformed(ActionEvent e) {			
+			public void actionPerformed(ActionEvent e) {
 				// serialPort.close();
 				// thread.interrupt();
 			}
@@ -306,15 +307,8 @@ public class MainFrame extends JFrame {
 		private int[] bufferToInt = new int[35];
 		private String[] bufferToString = new String[35];
 		
-		private String[] testPacket = {
-			"30", "30", "30", "30", "30"
-			,"30", "30", "34", "30" ,"30"
-			,"30", "30", "30", "30", "30"
-			,"30", "30", "0", "0", "0"
-			,"0", "70", "0", "0", "0"
-			,"b2", "3", "2", "35", "31"
-			,"18", "0", "30", "30", "30"
-		};
+		private RingBuffer ringBuffer = new RingBuffer(70);
+		private RingBuffer packBuffer = new RingBuffer(35);
 		
 		@Override
 		public void run() {
@@ -323,7 +317,7 @@ public class MainFrame extends JFrame {
 
 			/* SerialPort Open */
 			try {
-				/*System.out.println("getDevice : " + selectedSetting.getDevice().toString());
+				System.out.println("getDevice : " + selectedSetting.getDevice().toString());
 				portIdentifier = CommPortIdentifier.getPortIdentifier(selectedSetting.getDevice().toString());
 
 				if (portIdentifier.isCurrentlyOwned()) {
@@ -349,89 +343,89 @@ public class MainFrame extends JFrame {
 								CommonUtil.portSettingVlues("STOPBITS", selectedSetting.getStopBits()), // stop 비트
 								CommonUtil.portSettingVlues("PARITY_NONE", selectedSetting.getParity()) // 패리티 비트
 						);
-					} else {
+					} else 
+					{
 
 					}
-				}*/
-
-				RingBuffer ringBuffer = new RingBuffer(70);
+				}							
+				
 				while (true) {
-
-					int delay = 1000 + random.nextInt(4000);
-
 					try {
 						Thread.sleep(1000);
-						
+
 						while( ringBuffer.size()!=ringBuffer.capacity() ) {
-							for(int i = 0; i < testPacket.length; i++) {
-								ringBuffer.enque(testPacket[i]);	
+							in = serialPort.getInputStream();
+							in.read(buffer, 0, buffer.length);	
+							
+							for (int i = 0; i < buffer.length; i++) {								
+								bufferToInt[i] = (int) (buffer[i] & 0xff);
+								bufferToString[i] = Integer.toHexString(bufferToInt[i]);	
+							}
+							
+							for(int i = 0; i < bufferToString.length; i++) {
+								ringBuffer.enque(bufferToString[i].toString().trim());	
 							}
 						}
 						
-						// 임시 데이터 출력
+						// 링버퍼 데이터 출력
 						ringBuffer.dump();
 
+						// 정상 패킷 추출 및 정렬
 						String[] data = ringBuffer.getQue();
+						
 						System.out.print("[Align Packet Log] : ");
 						for(int i = ringBuffer.indexOf("2"); i <= ringBuffer.indexOf("2")+34; i++) {
 							System.out.print(data[i] + " ");
+							packBuffer.enque(data[i].toString());
 						}
 						System.out.println();
-
+						
+						// 정렬 완료 후 다시 bufferToString 배열에 복사
+						bufferToString = packBuffer.getQue();
+						
+						// 버포 비움(리셋)
 						ringBuffer.clear();
+						packBuffer.clear();
 						
-						/*in = serialPort.getInputStream();
-						in.read(buffer, 0, buffer.length);
+						if (CommonUtil.checksumConfirm(bufferToString)) 
+						{
+							outputData.setInfoInputVolt(String.valueOf(CommonUtil.makeInfoInputVolt(bufferToString)));					// 입력 전압
+							outputData.setInfoElectricCurrent(String.valueOf(CommonUtil.makeInfoElectricCurrent(bufferToString)));			// 전류
+							outputData.setInfoOutputVolt(String.valueOf(CommonUtil.makeInfoOutputVolt(bufferToString)));				// 출력 전압
+							outputData.setInfoFirstTemperature(String.valueOf(CommonUtil.makeInfoFirstTemperature(bufferToString)));	// 온도(방열판)
+							outputData.setInfoSecondTemperature(String.valueOf(CommonUtil.makeInfoSecondTemperature(bufferToString)));	// 온도(CAP)
 
-						for (int i = 0; i < buffer.length; i++) {
-							bufferToInt[i] = (int) (buffer[i] & 0xff);
-							bufferToString[i] = Integer.toHexString(bufferToInt[i]);
-						}
-
-						System.out.print("[Log] : ");
-						for (int i = 0; i < bufferToString.length; i++) {
-							System.out.print(bufferToString[i] + " ");
-						}
-						System.out.println("");
-						
-						if (CommonUtil.checksumConfirm(bufferToString)) {
-							outputData.setInfoInputVolt(CommonUtil.makeInfoInputVolt(bufferToString));					// 입력 전압
-							outputData.setInfoElectricCurrent(CommonUtil.makeInfoInputVolt(bufferToString));			// 전류
-							outputData.setInfoOutputVolt(CommonUtil.makeInfoOutputVolt(bufferToString));				// 출력 전압
-							outputData.setInfoFirstTemperature(CommonUtil.makeInfoFirstTemperature(bufferToString));	// 온도(방열판)
-							outputData.setInfoSecondTemperature(CommonUtil.makeInfoSecondTemperature(bufferToString));	// 온도(CAP)
-							
 							middlePanel.info_input_volt.setText(outputData.getInfoInputVolt());
-							middlePanel.info_electric_current.setText(outputData.getInfoInputVolt());
+							middlePanel.info_electric_current.setText(outputData.getInfoElectricCurrent());
 							middlePanel.info_output_volt.setText(outputData.getInfoOutputVolt());
 							middlePanel.info_first_temperature.setText(outputData.getInfoFirstTemperature());
 							middlePanel.info_second_temperature.setText(outputData.getInfoSecondTemperature());
 
 							monitoringPanel.infoInputVoltData.setText(outputData.getInfoInputVolt());
-							monitoringPanel.infoElectricCurrentData.setText(outputData.getInfoInputVolt());
+							monitoringPanel.infoElectricCurrentData.setText(outputData.getInfoElectricCurrent());
 							monitoringPanel.infoOutputVoltData.setText(outputData.getInfoOutputVolt());
 							monitoringPanel.infoFirstTemperatureData.setText(outputData.getInfoFirstTemperature());
 							monitoringPanel.infoSecondTemperatureData.setText(outputData.getInfoSecondTemperature());
-
-							// phase += 2 * Math.PI * 2 / 20.0;
-							// System.out.println("phase : " + phase);
-							//double[][] data = graphPanel.getSineData(delay);
-
-							//graphPanel.chart.updateXYSeries("sine", data[1], data[1], null);
+								
+							double[][] inputVoltDatas = graphPanel.getInputVoltData(Double.parseDouble(outputData.getInfoInputVolt()));
+							double[][] electricCurrentDatas = graphPanel.getElectricCurrentData(Double.parseDouble(outputData.getInfoElectricCurrent()));
+							double[][] outputVoltDatas = graphPanel.getOutputVoltData(Double.parseDouble(outputData.getInfoOutputVolt()));
 							
-							graphPanel.graph.repaint();
-						} else 
-						{
+							graphPanel.chart.updateXYSeries("입력전압", inputVoltDatas[0], inputVoltDatas[1], null);
+							graphPanel.chart.updateXYSeries("전류", electricCurrentDatas[0], electricCurrentDatas[1], null);
+							graphPanel.chart.updateXYSeries("출력전압", outputVoltDatas[0], outputVoltDatas[1], null);
+							graphPanel.chart.updateXYSeries("전류 X 출력전압", inputVoltDatas[0], inputVoltDatas[1], null);
 
-						}*/
-					} catch (Exception e) 
-					{
-						/*System.out.println("Error ComPort Close");
+							graphPanel.graph.repaint();										
+						}
+					} catch (Exception e) {
+						System.out.println("Error ComPort Close");
 						serialPort.close();
-						e.printStackTrace();*/
+						e.printStackTrace();
 					}
 				}
-			} catch (Exception e) 
+			} 
+			catch (Exception e) 
 			{
 				e.printStackTrace();
 			}
