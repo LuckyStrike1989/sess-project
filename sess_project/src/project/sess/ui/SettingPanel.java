@@ -1,8 +1,6 @@
 package project.sess.ui;
 
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -12,7 +10,7 @@ import javax.swing.JPanel;
 import project.sess.vo.SettingVO;
 
 public class SettingPanel extends JPanel {
-	/**
+	/*
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = -2258018595062088395L;
@@ -27,7 +25,6 @@ public class SettingPanel extends JPanel {
 	public JButton serialPortClose;
 
 	// private final String SERIAL_PORT_CONNECT_BUTTON_NAME = "立加 矫累";
-
 	// private final String SERIAL_PORT_CLOSE_BUTTON_NAME = "立加 辆丰";
 
 	private SettingVO settingVO = new SettingVO();
@@ -46,6 +43,7 @@ public class SettingPanel extends JPanel {
 		dataBits = new JComboBox<String>(settingVO.getDataBits());
 		dataBits.setBounds(470, 130, 200, 30);
 		this.add(dataBits);
+		
 
 		stopBits = new JComboBox<String>(settingVO.getStopBits());
 		stopBits.setBounds(470, 165, 200, 30);
@@ -56,20 +54,25 @@ public class SettingPanel extends JPanel {
 		this.add(parity);
 
 		// serialPortConnect = new JButton(SERIAL_PORT_CONNECT_BUTTON_NAME);
-		serialPortConnect = new JButton(new ImageIcon("./images/bt_connect_on.png"));
+		//serialPortConnect = new JButton(new ImageIcon("./images/bt_connect_on.png"));
+		// ImageIcon pressedIcon = new ImageIcon("./images/bt_connect_on_bk.png");
+		serialPortConnect = new JButton("立加");
+		//serialPortConnect.setPressedIcon(pressedIcon);
 		serialPortConnect.setBorderPainted(false);
 		serialPortConnect.setContentAreaFilled(false);
 		serialPortConnect.setFocusPainted(false);
-
+		serialPortConnect.setEnabled(true);
 		serialPortConnect.setBounds(450, 300, 100, 42);
 		this.add(serialPortConnect);
 
 		// serialPortClose = new JButton(SERIAL_PORT_CLOSE_BUTTON_NAME);
-		serialPortClose = new JButton(new ImageIcon("./images/bt_connect_close.png"));
+		serialPortClose = new JButton("立加辆丰");
+		// ImageIcon pressedIcon_close = new ImageIcon("./images/bt_connect_close_bk.png");
+		//serialPortClose.setPressedIcon(pressedIcon_close);
 		serialPortClose.setBorderPainted(false);
 		serialPortClose.setContentAreaFilled(false);
 		serialPortClose.setFocusPainted(false);
-
+		serialPortClose.setEnabled(false);
 		serialPortClose.setBounds(600, 300, 100, 42);
 		this.add(serialPortClose);
 	}

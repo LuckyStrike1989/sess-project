@@ -2,7 +2,6 @@ package project.sess.ui;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.util.Random;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -102,7 +101,7 @@ public class MonitoringPanel extends JPanel {
 		infoInputVoltData.setBounds(617, 115, 60, 30);
 		this.add(infoInputVoltData);
 		
-		stateLabel[0] = new JLabel(images.getSetDefault());
+		stateLabel[0] = new JLabel(images.getRed());
 		stateLabel[0].setBounds(543, 141, 200, 30);
 		this.add(stateLabel[0]);
 		
@@ -135,7 +134,7 @@ public class MonitoringPanel extends JPanel {
 		infoElectricCurrentData.setBounds(420, 217, 60, 30);
 		this.add(infoElectricCurrentData);
 		
-		stateLabel[4] = new JLabel(images.getSetDefault());
+		stateLabel[4] = new JLabel(images.getRed());
 		stateLabel[4].setBounds(350, 245, 200, 30);
 		this.add(stateLabel[4]);
 		
@@ -168,7 +167,7 @@ public class MonitoringPanel extends JPanel {
 		infoOutputVoltData.setBounds(617, 217, 60, 30);
 		this.add(infoOutputVoltData);
 		
-		stateLabel[8] = new JLabel(images.getSetDefault());
+		stateLabel[8] = new JLabel(images.getRed());
 		stateLabel[8].setBounds(543, 245, 200, 30);
 		this.add(stateLabel[8]);
 		
@@ -201,7 +200,7 @@ public class MonitoringPanel extends JPanel {
 		infoFirstTemperatureData.setBounds(420, 323, 60, 30);
 		this.add(infoFirstTemperatureData);
 		
-		stateLabel[12] = new JLabel(images.getSetDefault());
+		stateLabel[12] = new JLabel(images.getRed());
 		stateLabel[12].setBounds(350, 350, 200, 30);
 		this.add(stateLabel[12]);
 		
@@ -235,7 +234,7 @@ public class MonitoringPanel extends JPanel {
 		infoSecondTemperatureData.setBounds(617, 323, 60, 30);
 		this.add(infoSecondTemperatureData);
 		
-		stateLabel[16] = new JLabel(images.getSetDefault());
+		stateLabel[16] = new JLabel(images.getRed());
 		stateLabel[16].setBounds(534, 350, 200, 30);
 		this.add(stateLabel[16]);
 		

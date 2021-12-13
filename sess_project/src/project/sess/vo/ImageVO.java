@@ -6,68 +6,65 @@ import java.awt.Toolkit;
 import javax.swing.ImageIcon;
 
 public class ImageVO 
-{
-	
-	private Image global_title_tab = Toolkit.getDefaultToolkit().getImage("./images/Top_tab.png");
-	private Image global_middle_tab = Toolkit.getDefaultToolkit().getImage("./images/middle_tab.png");
-	private Image Monitoring_BackGround = Toolkit.getDefaultToolkit().getImage("./images/Monitoring_Image_j.png");
-	private Image FanControl_BackGround = Toolkit.getDefaultToolkit().getImage("./images/FanControl_Image.png");
-	private Image Graph_BackGround = Toolkit.getDefaultToolkit().getImage("./images/Graph_Image.png");
-	
-	
-	private Image Power_BackGround = Toolkit.getDefaultToolkit().getImage("./images/Power_Image.png");
-	private Image Setting_BackGround = Toolkit.getDefaultToolkit().getImage("./images/Setting_Image.png");	
-	private ImageIcon global_botton1 = new ImageIcon("./images/Monitoring_disable.png");
-	private ImageIcon global_botton1_selected = new ImageIcon("./images/Monitoring_enable.png");
-	private ImageIcon global_botton2 = new ImageIcon("./images/FanControl_disable1.png");
+{	
+	private Image global_title_tab = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("top_tab.png"));
+	private Image global_middle_tab = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("middle_tab.png"));
+	private Image Monitoring_BackGround = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("Monitoring_Image_j.png"));
+	private Image FanControl_BackGround = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("FanControl_Image.png"));
+	private Image Graph_BackGround = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("Graph_Image.png"));
 	
 	
-	private ImageIcon global_botton2_selected = new ImageIcon("./images/FanControl_enable1.png");
-	private ImageIcon global_botton3 = new ImageIcon("./images/Graph_disable.png");
-	private ImageIcon global_botton3_selected = new ImageIcon("./images/Graph_enable.png");
-	private ImageIcon global_botton4 = new ImageIcon("./images/Setting_disable.png");
-	private ImageIcon global_botton4_selected = new ImageIcon("./images/Setting_enable.png");
+	//private Image Power_BackGround = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("Power_Image.png"));
+	private Image Setting_BackGround = Toolkit.getDefaultToolkit().getImage(getClass().getClassLoader().getResource("Setting_Image.png"));	
+	private ImageIcon global_botton1 = new ImageIcon(getClass().getClassLoader().getResource("Monitoring_disable.png"));
+	private ImageIcon global_botton1_selected = new ImageIcon(getClass().getClassLoader().getResource("Monitoring_enable.png"));
+	private ImageIcon global_botton2 = new ImageIcon(getClass().getClassLoader().getResource("FanControl_disable1.png"));
 	
 	
-	private ImageIcon global_power_button = new ImageIcon("./images/Power_OFF.png");
-	private ImageIcon global_power_button_selected = new ImageIcon("./images/Power_ON.png");
-	private ImageIcon setDefault = new ImageIcon("./images/State_Imformation1.png");
-	private ImageIcon Green = new ImageIcon("./images/State_Imformation4.png");
-	private ImageIcon Red = new ImageIcon("./images/State_Imformation2.png");
+	private ImageIcon global_botton2_selected = new ImageIcon(getClass().getClassLoader().getResource("FanControl_enable1.png"));
+	private ImageIcon global_botton3 = new ImageIcon(getClass().getClassLoader().getResource("Graph_disable.png"));
+	private ImageIcon global_botton3_selected = new ImageIcon(getClass().getClassLoader().getResource("Graph_enable.png"));
+	private ImageIcon global_botton4 = new ImageIcon(getClass().getClassLoader().getResource("Setting_disable.png"));
+	private ImageIcon global_botton4_selected = new ImageIcon(getClass().getClassLoader().getResource("Setting_enable.png"));
 	
 	
-	private ImageIcon JuHwan = new ImageIcon("./images/State_Imformation3.png");
-	private ImageIcon ON_Image = new ImageIcon("./images/control_check_on.png");
-	private ImageIcon OFF_Image = new ImageIcon("./images/control_check_off.png");
-	private ImageIcon UP_Image_check = new ImageIcon("./images/deming_up_check.png");
-	private ImageIcon UP_Image_uncheck = new ImageIcon("./images/deming_up_uncheck.png");
+	private ImageIcon global_power_button = new ImageIcon(getClass().getClassLoader().getResource("Power_OFF.png"));
+	private ImageIcon global_power_button_selected = new ImageIcon(getClass().getClassLoader().getResource("Power_ON.png"));
+	//private ImageIcon setDefault = new ImageIcon(getClass().getClassLoader().getResource("State_Imformation1.png"));
+	private ImageIcon Green = new ImageIcon(getClass().getClassLoader().getResource("State_Imformation4.png"));
+	private ImageIcon Red = new ImageIcon(getClass().getClassLoader().getResource("State_Imformation2.png"));
 	
 	
-	private ImageIcon DOWN_Image_check = new ImageIcon("./images/deming_down_check.png");
-	private ImageIcon DOWN_Image_uncheck = new ImageIcon("./images/deming_down_uncheck.png");
-	private ImageIcon setting_chackbox_image_check = new ImageIcon("./images/setting_check.png");
-	private ImageIcon setting_chackbox_image_uncheck = new ImageIcon("./images/setting_unchecked.png");
-	private ImageIcon setting_button1_image = new ImageIcon("./images/setting_button1_image.jpg");
+	private ImageIcon JuHwan = new ImageIcon(getClass().getClassLoader().getResource("State_Imformation3.png"));
+	private ImageIcon ON_Image = new ImageIcon(getClass().getClassLoader().getResource("control_check_on.png"));
+	private ImageIcon OFF_Image = new ImageIcon(getClass().getClassLoader().getResource("control_check_off.png"));
+	private ImageIcon UP_Image_check = new ImageIcon(getClass().getClassLoader().getResource("deming_up_check.png"));
+	private ImageIcon UP_Image_uncheck = new ImageIcon(getClass().getClassLoader().getResource("deming_up_uncheck.png"));
 	
 	
-	private ImageIcon setting_button2_image = new ImageIcon("./images/setting_button2_image.png");
-	private ImageIcon fancontrol_on = new ImageIcon("./images/FanControl_ON.png");
-	private ImageIcon fancontrol_off = new ImageIcon("./images/FanControl_OFF.png");
-	private ImageIcon gauge_point1 = new ImageIcon("./images/im_gauge-point-0.png");
-	private ImageIcon gauge_point2 = new ImageIcon("./images/im_gauge-point-90.png");
+	private ImageIcon DOWN_Image_check = new ImageIcon(getClass().getClassLoader().getResource("deming_down_check.png"));
+	private ImageIcon DOWN_Image_uncheck = new ImageIcon(getClass().getClassLoader().getResource("deming_down_uncheck.png"));
+	private ImageIcon setting_chackbox_image_check = new ImageIcon(getClass().getClassLoader().getResource("setting_check.png"));
+	private ImageIcon setting_chackbox_image_uncheck = new ImageIcon(getClass().getClassLoader().getResource("setting_unchecked.png"));
+	private ImageIcon setting_button1_image = new ImageIcon(getClass().getClassLoader().getResource("setting_button1_image.jpg"));
 	
 	
-	private ImageIcon gauge_point3 = new ImageIcon("./images/im_gauge-point-180.png");
-	private ImageIcon safty_on = new ImageIcon("./images/bt_safty_on.png");
-	private ImageIcon safty_off= new ImageIcon("./images/bt_safty_off.png");
-	private ImageIcon warn_on = new ImageIcon("./images/bt_warn_on.png");
-	private ImageIcon warn_off = new ImageIcon("./images/bt_warn_off.png");
+	private ImageIcon setting_button2_image = new ImageIcon(getClass().getClassLoader().getResource("setting_button2_image.png"));
+	//private ImageIcon fancontrol_on = new ImageIcon(getClass().getClassLoader().getResource("FanControl_ON.png"));
+	//private ImageIcon fancontrol_off = new ImageIcon(getClass().getClassLoader().getResource("FanControl_OFF.png"));
+	private ImageIcon gauge_point1 = new ImageIcon(getClass().getClassLoader().getResource("im_gauge-point-0.png"));
+	private ImageIcon gauge_point2 = new ImageIcon(getClass().getClassLoader().getResource("im_gauge-point-90.png"));
 	
 	
-	private ImageIcon danger_on = new ImageIcon("./images/bt_danger_on.png");
-	private ImageIcon danger_off = new ImageIcon("./images/bt_danger_off.png");
+	private ImageIcon gauge_point3 = new ImageIcon(getClass().getClassLoader().getResource("im_gauge-point-180.png"));
+	private ImageIcon safty_on = new ImageIcon(getClass().getClassLoader().getResource("bt_safty_on.png"));
+	private ImageIcon safty_off= new ImageIcon(getClass().getClassLoader().getResource("bt_safty_off.png"));
+	private ImageIcon warn_on = new ImageIcon(getClass().getClassLoader().getResource("bt_warn_on.png"));
+	private ImageIcon warn_off = new ImageIcon(getClass().getClassLoader().getResource("bt_warn_off.png"));
 	
-
+	
+	private ImageIcon danger_on = new ImageIcon(getClass().getClassLoader().getResource("bt_danger_on.png"));
+	private ImageIcon danger_off = new ImageIcon(getClass().getClassLoader().getResource("bt_danger_off.png"));
 	
 	
 	public Image getGlobal_title_tab() {
@@ -108,14 +105,6 @@ public class ImageVO
 	
 	public void setGraph_BackGround(Image graph_BackGround) {
 		Graph_BackGround = graph_BackGround;
-	}
-	
-	public Image getPower_BackGround() {
-		return Power_BackGround;
-	}
-	
-	public void setPower_BackGround(Image power_BackGround) {
-		Power_BackGround = power_BackGround;
 	}
 	
 	public Image getSetting_BackGround() {
@@ -204,14 +193,6 @@ public class ImageVO
 	
 	public void setGlobal_power_button_selected(ImageIcon global_power_button_selected) {
 		this.global_power_button_selected = global_power_button_selected;
-	}
-	
-	public ImageIcon getSetDefault() {
-		return setDefault;
-	}
-	
-	public void setSetDefault(ImageIcon setDefault) {
-		this.setDefault = setDefault;
 	}
 	
 	public ImageIcon getGreen() {
@@ -316,22 +297,6 @@ public class ImageVO
 	
 	public void setSetting_button2_image(ImageIcon setting_button2_image) {
 		this.setting_button2_image = setting_button2_image;
-	}
-	
-	public ImageIcon getFancontrol_on() {
-		return fancontrol_on;
-	}
-	
-	public void setFancontrol_on(ImageIcon fancontrol_on) {
-		this.fancontrol_on = fancontrol_on;
-	}
-	
-	public ImageIcon getFancontrol_off() {
-		return fancontrol_off;
-	}
-	
-	public void setFancontrol_off(ImageIcon fancontrol_off) {
-		this.fancontrol_off = fancontrol_off;
 	}
 	
 	public ImageIcon getGauge_point1() {

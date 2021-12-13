@@ -61,7 +61,7 @@ public class MiddlePanel extends JPanel {
 		this.add(first_temperature);
 		this.add(info_first_temperature);
 		
-		second_temperature = new JLabel("�온도2 : ");
+		second_temperature = new JLabel("온도2 : ");
 		second_temperature.setBounds(370, 10, 50, 15);
 		info_second_temperature = new JLabel("0000");
 		info_second_temperature.setBounds(410, 10, 50, 15);

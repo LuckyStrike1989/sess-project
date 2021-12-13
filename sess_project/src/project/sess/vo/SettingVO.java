@@ -3,7 +3,7 @@ package project.sess.vo;
 public class SettingVO {
 	private String deviceItems[] = 
 	{
-		  "COM1", "COM2", "COM3"
+		"COM1", "COM2", "COM3"
 		, "COM4", "COM5", "COM6"
 		, "COM7", "COM8", "COM9"
 		, "COM10", "COM11", "COM12"
@@ -14,7 +14,7 @@ public class SettingVO {
 	};
 	
 	private String baudRate[] = {
-			"9600", "19200", "38400", "57600","115200" 
+			"9600", "19200", "38400", "57600","115200"  //"9600",
 	};
 	
 	private String dataBits[] = {
